@@ -1,4 +1,4 @@
-<img width="1626" height="638" alt="image" src="https://github.com/user-attachments/assets/c8058202-63df-4483-99f4-410e700fecf5" /># 🛡️ FoundIt - Admin Dashboard
+# 🛡️ FoundIt - Admin Dashboard
 
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
