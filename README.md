@@ -49,4 +49,4 @@ This repository contains the standalone Flutter Web codebase, connected directly
 ## 📱 Companion Client App
 This Admin Panel is the management side of the FoundIt marketplace. To see the consumer-facing mobile application, visit the main repository below:
 
-👉 **[View the FoundIt Client App Repository Here]([LINK_TO_YOUR_MAIN_APP_REPO](https://github.com/Ismailcyp/FoundIt-Flutter))**
+👉 [**View the FoundIt Client App Repository Here**](https://github.com/Ismailcyp/FoundIt-Flutter)
