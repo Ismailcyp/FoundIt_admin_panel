@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "958358226757",
-    "project_id": "yallasafqa-1bbae",
-    "storage_bucket": "yallasafqa-1bbae.firebasestorage.app"
+    "project_number": "560785961911",
+    "project_id": "foundit-f312d",
+    "storage_bucket": "foundit-f312d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958358226757:android:9dcdf217f468a350ec202c",
+        "mobilesdk_app_id": "1:560785961911:android:37d54ce8dfe15ad9bcae32",
         "android_client_info": {
           "package_name": "com.example.yalla_admin_panel"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCJZvi3jDPdfR3SHjfW98YryKnOd6IJt7k"
+          "current_key": "AIzaSyBsI0ft-M2AglmEqHdUI9vwMK3ncsXjhCk"
         }
       ],
       "services": {
@@ -26,7 +26,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958358226757:android:3cd68a1f86bee365ec202c",
+        "mobilesdk_app_id": "1:560785961911:android:6573558b8dd53584bcae32",
         "android_client_info": {
           "package_name": "com.example.yalla_safqa"
         }
@@ -34,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCJZvi3jDPdfR3SHjfW98YryKnOd6IJt7k"
+          "current_key": "AIzaSyBsI0ft-M2AglmEqHdUI9vwMK3ncsXjhCk"
         }
       ],
       "services": {

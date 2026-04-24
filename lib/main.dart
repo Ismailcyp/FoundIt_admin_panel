@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:yalla_admin_panel/admin_login.dart';
+import 'package:FoundIt_admin_panel/admin_login.dart';
 import 'firebase_options.dart';
-import 'package:yalla_admin_panel/admin_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +17,10 @@ class AdminPanelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Yalla Safqa Admin',
+      title: 'FounIt Admin',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 38, 2, 58),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 3, 82, 42),
         brightness: Brightness.dark,
       ),
       home: const AdminLoginScreen(),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:yalla_admin_panel/admin_login.dart'; // Helps format dates nicely
+import 'package:FoundIt_admin_panel/admin_login.dart'; 
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -15,16 +15,13 @@ class AdminHome extends StatefulWidget {
 class _AdminHomeState extends State<AdminHome> {
   int _selectedIndex = 4;
 
-  final Color _bgDark = const Color(0xFF131128);
-  final Color _cardDark = const Color(0xFF1D1B36);
-  final Color _primaryPurple = const Color(0xFF6E56FF);
-  final Color _textSecondary = const Color(0xFF8E8E9F);
-  final Color _borderColor = Colors.white12;
+  final Color _bgDark = const Color.fromARGB(255, 49, 44, 43);
+  final Color _cardDark = const Color.fromARGB(255, 49, 44, 43);
+  final Color green = const Color(0xFFB5E575);
+  final Color _textSecondary =  const Color(0xFFB5E575);
+  final Color _borderColor = const Color(0xFFB5E575);
 
-  // =========================================================================
-  // DATABASE ACTIONS
-  // =========================================================================
-  // --- NEW: FETCH DASHBOARD METRICS ---
+
   Future<Map<String, int>> _getDashboardStats() async {
     final users = await FirebaseFirestore.instance.collection('Users').get();
     final pending = await FirebaseFirestore.instance
@@ -95,7 +92,7 @@ class _AdminHomeState extends State<AdminHome> {
     }
   }
 
-  // --- NEW: ADD / EDIT CATEGORY DIALOG ---
+ 
   void _showCategoryDialog({
     Map<String, dynamic>? existingCategory,
     String? docId,
@@ -147,7 +144,7 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                   ),
                   onChanged: (val) {
-                    // Auto-generate slug when typing the name!
+                 
                     if (!isEditing) {
                       slugCtrl.text = val
                           .toLowerCase()
@@ -199,7 +196,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: _primaryPurple),
+              style: ElevatedButton.styleFrom(backgroundColor: green),
               onPressed: () async {
                 if (nameCtrl.text.trim().isEmpty ||
                     slugCtrl.text.trim().isEmpty)
@@ -225,9 +222,9 @@ class _AdminHomeState extends State<AdminHome> {
                   }
 
                   if (context.mounted)
-                    Navigator.pop(context); // Close if successful
+                    Navigator.pop(context); 
                 } catch (e) {
-                  // Catch the error and show it to you!
+                 
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -253,9 +250,7 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
-  // =========================================================================
-  // MAIN LAYOUT
-  // =========================================================================
+
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +258,6 @@ class _AdminHomeState extends State<AdminHome> {
       backgroundColor: _bgDark,
       body: Row(
         children: [
-          // 1. LEFT SIDEBAR
           Container(
             width: 260,
             color: _bgDark,
@@ -273,9 +267,9 @@ class _AdminHomeState extends State<AdminHome> {
                 const SizedBox(height: 24),
                 const Center(
                   child: Text(
-                    'yallasafqa',
+                    'FoundIt',
                     style: TextStyle(
-                      color: Color(0xFF6E56FF),
+                      color: const Color(0xFFB5E575),
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -300,7 +294,7 @@ class _AdminHomeState extends State<AdminHome> {
             ),
           ),
 
-          // 2. MAIN CONTENT AREA
+    
           Expanded(
             child: Container(
               margin: const EdgeInsets.only(top: 16, right: 16, bottom: 16),
@@ -313,7 +307,7 @@ class _AdminHomeState extends State<AdminHome> {
                 borderRadius: BorderRadius.circular(16),
                 child: Column(
                   children: [
-                    // TOP NAV BAR
+                 
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
@@ -338,17 +332,15 @@ class _AdminHomeState extends State<AdminHome> {
                           const SizedBox(width: 16),
                           GestureDetector(
                             onTap: () async {
-                              // 1. Sign out of Firebase
                               await FirebaseAuth.instance.signOut();
 
-                              // 2. Navigate to Login and destroy the back-stack
                               if (context.mounted) {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         const AdminLoginScreen(),
-                                  ), // Or your mobile login screen
+                                  ),
                                 );
                               }
                             },
@@ -371,39 +363,39 @@ class _AdminHomeState extends State<AdminHome> {
                       ),
                     ),
 
-                    // DYNAMIC TAB CONTENT
+                
                     Expanded(
                       child: IndexedStack(
                         index: _selectedIndex,
                         children: [
-                          _buildDashboardTab(), // <--- 0. It now points to your new function!
-                          _buildClientsTab(), // 1
-                          _buildProductsTab(), // 2
+                          _buildDashboardTab(), 
+                          _buildClientsTab(), 
+                          _buildProductsTab(), 
                           const Center(
                             child: Text(
                               'Brands Coming Soon',
-                              style: TextStyle(color: Colors.white54),
+                              style: TextStyle(color:const Color(0xFFB5E575)),
                             ),
-                          ), // 3
-                          _buildCategoriesTab(), // 4
+                          ), 
+                          _buildCategoriesTab(), 
                           const Center(
                             child: Text(
                               'Universities Coming Soon',
-                              style: TextStyle(color: Colors.white54),
+                              style: TextStyle(color: const Color(0xFFB5E575)),
                             ),
-                          ), // 5
+                          ), 
                           const Center(
                             child: Text(
                               'Settings Coming Soon',
-                              style: TextStyle(color: Colors.white54),
+                              style: TextStyle(color:const Color(0xFFB5E575)),
                             ),
-                          ), // 6
+                          ), 
                           const Center(
                             child: Text(
                               'Admin Management Coming Soon',
-                              style: TextStyle(color: Colors.white54),
+                              style: TextStyle(color:const Color(0xFFB5E575)),
                             ),
-                          ), // 7
+                          ),
                         ],
                       ),
                     ),
@@ -417,9 +409,6 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
-  // =========================================================================
-  // TAB 4: CATEGORIES
-  // =========================================================================
 
   Widget _buildCategoriesTab() {
     return Column(
@@ -436,30 +425,30 @@ class _AdminHomeState extends State<AdminHome> {
                   const Text(
                     'Product Categories',
                     style: TextStyle(
-                      color: Colors.white,
+                      color:  Color(0xFFB5E575),
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Add, update, or remove categories available for student listings.',
+                    'Add, update, or remove categories available for listings.',
                     style: TextStyle(color: _textSecondary),
                   ),
                 ],
               ),
               ElevatedButton.icon(
-                onPressed: () => _showCategoryDialog(), // Opens empty dialog
-                icon: const Icon(Icons.add, color: Colors.white),
+                onPressed: () => _showCategoryDialog(), 
+                icon: const Icon(Icons.add, color: const Color(0xFFB5E575)),
                 label: const Text(
                   'Add Category',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: const Color(0xFFB5E575),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryPurple,
+                  backgroundColor: Colors.green,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 16,
@@ -521,7 +510,7 @@ class _AdminHomeState extends State<AdminHome> {
                         return const Center(
                           child: Text(
                             'No categories found. Click "Add Category" to create one.',
-                            style: TextStyle(color: Colors.white54),
+                            style: TextStyle(color: const Color(0xFFB5E575)),
                           ),
                         );
                       }
@@ -539,7 +528,6 @@ class _AdminHomeState extends State<AdminHome> {
                           final String slug = item['slug'] ?? '';
                           final String desc = item['description'] ?? '--';
 
-                          // Format the timestamp nicely
                           String dateStr = '--';
                           if (item['createdAt'] != null) {
                             final DateTime date =
@@ -554,7 +542,6 @@ class _AdminHomeState extends State<AdminHome> {
                             ),
                             child: Row(
                               children: [
-                                // Placeholder icon box (matching your mockup)
                                 Expanded(
                                   flex: 1,
                                   child: Align(
@@ -563,7 +550,7 @@ class _AdminHomeState extends State<AdminHome> {
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Colors.white24,
+                                          color: const Color(0xFFB5E575),
                                         ),
                                         shape: BoxShape.circle,
                                       ),
@@ -580,7 +567,7 @@ class _AdminHomeState extends State<AdminHome> {
                                   child: Text(
                                     name,
                                     style: const TextStyle(
-                                      color: Colors.white,
+                                      color: const Color(0xFFB5E575),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -593,7 +580,7 @@ class _AdminHomeState extends State<AdminHome> {
                                       vertical: 4,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.05),
+                                      color: const Color(0xFFB5E575).withOpacity(0.05),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(
@@ -610,7 +597,7 @@ class _AdminHomeState extends State<AdminHome> {
                                   child: Text(
                                     desc.isEmpty ? '--' : desc,
                                     style: const TextStyle(
-                                      color: Colors.white54,
+                                      color: const Color(0xFFB5E575),
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -621,24 +608,24 @@ class _AdminHomeState extends State<AdminHome> {
                                   child: Text(
                                     dateStr,
                                     style: const TextStyle(
-                                      color: Colors.white70,
+                                      color: const Color(0xFFB5E575),
                                     ),
                                   ),
                                 ),
 
-                                // Actions Menu
                                 PopupMenuButton<String>(
                                   icon: const Icon(
                                     Icons.more_horiz,
-                                    color: Colors.white54,
+                                    color: const Color(0xFFB5E575),
                                   ),
-                                  color: _cardDark,
+                                  color: const Color(0xFFB5E575),
                                   onSelected: (value) {
-                                    if (value == 'edit')
+                                    if (value == 'edit') {
                                       _showCategoryDialog(
                                         existingCategory: item,
                                         docId: docId,
                                       );
+                                    }
                                     if (value == 'delete')
                                       _deleteCategory(docId);
                                   },
@@ -693,13 +680,6 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
-  // =========================================================================
-  // EXISTING TABS & HELPERS (Kept exactly the same)
-  // =========================================================================
-
-  // =========================================================================
-  // TAB 0: DASHBOARD OVERVIEW
-  // =========================================================================
 
   Widget _buildDashboardTab() {
     return Column(
@@ -713,24 +693,22 @@ class _AdminHomeState extends State<AdminHome> {
               const Text(
                 'Dashboard Overview',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: const Color(0xFFB5E575),
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Welcome back! Here is what is happening on Yalla Safqa today.',
-                style: TextStyle(color: _textSecondary),
+                'Welcome back! Here is what is happening on Founit today.',
+                style: TextStyle(color: const Color(0xFFB5E575)),
               ),
               const SizedBox(height: 24),
 
-              // STATS CARDS
               FutureBuilder<Map<String, int>>(
                 future: _getDashboardStats(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Show skeleton/loading state
                     return Row(
                       children: [
                         _buildStatCard(
@@ -805,13 +783,12 @@ class _AdminHomeState extends State<AdminHome> {
           ),
         ),
 
-        // RECENT ACTIVITY HEADER
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: const Text(
             'Recent Activity',
             style: TextStyle(
-              color: Colors.white,
+              color: const Color(0xFFB5E575),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -819,21 +796,20 @@ class _AdminHomeState extends State<AdminHome> {
         ),
         const SizedBox(height: 16),
 
-        // RECENT LISTINGS TABLE
         Expanded(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
-              border: Border.all(color: _borderColor),
+              border: Border.all(color: const Color(0xFFB5E575)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               children: [
-                // Table Header
+              
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: _borderColor)),
+                    border: Border(bottom: BorderSide(color: const Color(0xFFB5E575))),
                   ),
                   child: Row(
                     children: [
@@ -847,7 +823,7 @@ class _AdminHomeState extends State<AdminHome> {
                     ],
                   ),
                 ),
-                // Table Body (Limited to 10 most recent)
+               
                 Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
@@ -864,7 +840,7 @@ class _AdminHomeState extends State<AdminHome> {
                         return const Center(
                           child: Text(
                             'No recent activity.',
-                            style: TextStyle(color: Colors.white54),
+                            style: TextStyle(color: const Color(0xFFB5E575)),
                           ),
                         );
                       }
@@ -872,7 +848,7 @@ class _AdminHomeState extends State<AdminHome> {
                       return ListView.separated(
                         itemCount: docs.length,
                         separatorBuilder: (context, index) =>
-                            Divider(color: _borderColor, height: 1),
+                            Divider(color: const Color(0xFFB5E575), height: 1),
                         itemBuilder: (context, index) {
                           final item =
                               docs[index].data() as Map<String, dynamic>;
@@ -880,7 +856,7 @@ class _AdminHomeState extends State<AdminHome> {
                           return _buildProductRow(
                             item,
                             docId,
-                          ); // Reusing your existing row UI!
+                          ); 
                         },
                       );
                     },
@@ -895,8 +871,7 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
-  // --- MISSING FUNCTION: BUILDS THE PRODUCT ROW ---
-  // --- BUILDS THE PRODUCT ROW FOR ADMIN TABLES ---
+
   Widget _buildProductRow(Map<String, dynamic> item, String docId) {
     final String title = item['title'] ?? 'No Title';
     final int price = item['price'] ?? 0;
@@ -906,7 +881,7 @@ class _AdminHomeState extends State<AdminHome> {
     final List<dynamic> images = item['images'] ?? [];
     final String sellerId = item['sellerId'] ?? ''; 
     
-    // NEW: Grab the timestamp
+  
     final Timestamp? createdAt = item['createdAt'] as Timestamp?;
     
     Color statusColor = (status == 'active' || status == 'approved') ? Colors.green : (status == 'pending' ? Colors.orange : Colors.redAccent);
@@ -915,7 +890,6 @@ class _AdminHomeState extends State<AdminHome> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
-          // 1. IMAGE, TITLE & TIME AGO
           Expanded(
             flex: 3,
             child: Row(
@@ -927,10 +901,9 @@ class _AdminHomeState extends State<AdminHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      Text(title, style: const TextStyle(color: const Color(0xFFB5E575), fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 4),
-                      // The formatted time is injected here!
-                      Text('Listed ${_timeAgo(createdAt)}', style: const TextStyle(color: Colors.white38, fontSize: 11)),
+                      Text('Listed ${_timeAgo(createdAt)}', style: const TextStyle(color: const Color(0xFFB5E575), fontSize: 11)),
                     ],
                   ),
                 ),
@@ -938,34 +911,34 @@ class _AdminHomeState extends State<AdminHome> {
             ),
           ),
           
-          // 2. CATEGORY
-          Expanded(flex: 2, child: Text(category, style: const TextStyle(color: Colors.white70))),
           
-          // 3. SELLER NAME (Fetches dynamically)
+          Expanded(flex: 2, child: Text(category, style: const TextStyle(color: const Color(0xFFB5E575)))),
+          
+         
           Expanded(
             flex: 2, 
             child: sellerId.isEmpty ? const Text('Unknown', style: TextStyle(color: Colors.redAccent, fontSize: 12)) : FutureBuilder<DocumentSnapshot>(
               future: FirebaseFirestore.instance.collection('Users').doc(sellerId).get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData || !snapshot.data!.exists) return const Text('Loading...', style: TextStyle(color: Colors.white54, fontSize: 12));
+                if (!snapshot.hasData || !snapshot.data!.exists) return const Text('Loading...', style: TextStyle(color: const Color(0xFFB5E575), fontSize: 12));
                 final userData = snapshot.data!.data() as Map<String, dynamic>;
-                return Text('${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}'.trim(), style: const TextStyle(color: Colors.white, fontSize: 13), maxLines: 1, overflow: TextOverflow.ellipsis);
+                return Text('${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}'.trim(), style: const TextStyle(color: const Color(0xFFB5E575), fontSize: 13), maxLines: 1, overflow: TextOverflow.ellipsis);
               },
             ),
           ),
           
-          // 4. PRICE
-          Expanded(flex: 1, child: Text('$price EGP', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+    
+          Expanded(flex: 1, child: Text('$price EGP', style: const TextStyle(color: const Color(0xFFB5E575), fontWeight: FontWeight.bold))),
           
-          // 5. CONDITION
-          Expanded(flex: 1, child: Align(alignment: Alignment.centerLeft, child: Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(border: Border.all(color: Colors.white24), borderRadius: BorderRadius.circular(12)), child: Text(isNew ? 'New' : 'Used', style: const TextStyle(color: Colors.white, fontSize: 11))))),
+         
+          Expanded(flex: 1, child: Align(alignment: Alignment.centerLeft, child: Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(border: Border.all(color: const Color(0xFFB5E575)), borderRadius: BorderRadius.circular(12)), child: Text(isNew ? 'New' : 'Used', style: const TextStyle(color: const Color(0xFFB5E575), fontSize: 11))))),
           
-          // 6. STATUS
+        
           Expanded(flex: 1, child: Align(alignment: Alignment.centerLeft, child: Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: statusColor.withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: Text(status.toUpperCase(), style: TextStyle(color: statusColor, fontSize: 11, fontWeight: FontWeight.bold))))),
           
-          // 7. ACTION MENU
+       
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_horiz, color: Colors.white54),
+            icon: const Icon(Icons.more_horiz, color: const Color(0xFFB5E575)),
             color: const Color(0xFF1B1B28),
             onSelected: (value) {
               if (value == 'view') _showListingReviewDialog(item, docId);
@@ -1018,7 +991,7 @@ class _AdminHomeState extends State<AdminHome> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'View and manage student users of the platform.',
+                    'View and manage users of the platform.',
                     style: TextStyle(color: _textSecondary),
                   ),
                   const SizedBox(height: 24),
@@ -1053,7 +1026,7 @@ class _AdminHomeState extends State<AdminHome> {
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 decoration: BoxDecoration(
-                  border: Border.all(color: _borderColor),
+                  border: Border.all(color: const Color(0xFFB5E575)),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
@@ -1061,13 +1034,13 @@ class _AdminHomeState extends State<AdminHome> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: _borderColor)),
+                        border: Border(bottom: BorderSide(color: const Color(0xFFB5E575))),
                       ),
                       child: Row(
                         children: [
                           Expanded(flex: 3, child: _headerText('Name')),
-                          Expanded(flex: 2, child: _headerText('University')),
-                          Expanded(flex: 2, child: _headerText('Faculty')),
+                          // Expanded(flex: 2, child: _headerText('University')),
+                          // Expanded(flex: 2, child: _headerText('Faculty')),
                           Expanded(flex: 1, child: _headerText('Gender')),
                           Expanded(flex: 1, child: _headerText('Status')),
                           const SizedBox(width: 40),
@@ -1085,7 +1058,7 @@ class _AdminHomeState extends State<AdminHome> {
                           : ListView.separated(
                               itemCount: docs.length,
                               separatorBuilder: (context, index) =>
-                                  Divider(color: _borderColor, height: 1),
+                                  Divider(color: const Color(0xFFB5E575), height: 1),
                               itemBuilder: (context, index) {
                                 final user =
                                     docs[index].data() as Map<String, dynamic>;
@@ -1095,7 +1068,7 @@ class _AdminHomeState extends State<AdminHome> {
                                 final String lName = user['lastName'] ?? '';
                                 final String email =
                                     user['email'] ?? 'No email provided';
-                                final String uni = user['university'] ?? 'EUI';
+                                // final String uni = user['university'] ?? 'EUI';
                                 final String faculty =
                                     user['faculty'] ?? 'Not Specified';
                                 final String gender =
@@ -1116,7 +1089,7 @@ class _AdminHomeState extends State<AdminHome> {
                                           children: [
                                             CircleAvatar(
                                               radius: 18,
-                                              backgroundColor: _primaryPurple
+                                              backgroundColor: green
                                                   .withOpacity(0.2),
                                               child: const Icon(
                                                 Icons.person,
@@ -1157,24 +1130,24 @@ class _AdminHomeState extends State<AdminHome> {
                                           ],
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          uni,
-                                          style: const TextStyle(
-                                            color: Colors.white70,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          faculty,
-                                          style: const TextStyle(
-                                            color: Colors.white70,
-                                          ),
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     uni,
+                                      //     style: const TextStyle(
+                                      //       color: Colors.white70,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     faculty,
+                                      //     style: const TextStyle(
+                                      //       color: Colors.white70,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       Expanded(
                                         flex: 1,
                                         child: Text(
@@ -1197,7 +1170,7 @@ class _AdminHomeState extends State<AdminHome> {
                                               color: isSuspended
                                                   ? Colors.redAccent
                                                         .withOpacity(0.2)
-                                                  : _primaryPurple.withOpacity(
+                                                  : green.withOpacity(
                                                       0.2,
                                                     ),
                                               borderRadius:
@@ -1210,7 +1183,7 @@ class _AdminHomeState extends State<AdminHome> {
                                               style: TextStyle(
                                                 color: isSuspended
                                                     ? Colors.redAccent
-                                                    : _primaryPurple,
+                                                    : green,
                                                 fontSize: 11,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -1221,7 +1194,7 @@ class _AdminHomeState extends State<AdminHome> {
                                       PopupMenuButton<String>(
                                         icon: const Icon(
                                           Icons.more_horiz,
-                                          color: Colors.white54,
+                                          color: const Color(0xFFB5E575),
                                         ),
                                         color: _cardDark,
                                         onSelected: (value) {
@@ -1334,7 +1307,7 @@ class _AdminHomeState extends State<AdminHome> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Comprehensive control over all products listed by student sellers.',
+                    'Comprehensive control over all products listed by sellers.',
                     style: TextStyle(color: _textSecondary),
                   ),
                   const SizedBox(height: 24),
@@ -1376,7 +1349,7 @@ class _AdminHomeState extends State<AdminHome> {
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 decoration: BoxDecoration(
-                  border: Border.all(color: _borderColor),
+                  border: Border.all(color: const Color(0xFFB5E575)),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
@@ -1432,7 +1405,7 @@ class _AdminHomeState extends State<AdminHome> {
 
                                 Color statusColor =
                                     (status == 'active' || status == 'approved')
-                                    ? _primaryPurple
+                                    ? green
                                     : (status == 'pending'
                                           ? Colors.orange
                                           : Colors.redAccent);
@@ -1462,7 +1435,7 @@ class _AdminHomeState extends State<AdminHome> {
                                               child: Text(
                                                 title,
                                                 style: const TextStyle(
-                                                  color: Colors.white,
+                                                  color: const Color(0xFFB5E575),
                                                 ),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
@@ -1477,7 +1450,7 @@ class _AdminHomeState extends State<AdminHome> {
                                         child: Text(
                                           category,
                                           style: const TextStyle(
-                                            color: Colors.white70,
+                                            color: const Color(0xFFB5E575),
                                           ),
                                         ),
                                       ),
@@ -1504,7 +1477,7 @@ class _AdminHomeState extends State<AdminHome> {
                                                     return const Text(
                                                       'Loading...',
                                                       style: TextStyle(
-                                                        color: Colors.white54,
+                                                        color: const Color(0xFFB5E575),
                                                         fontSize: 12,
                                                       ),
                                                     );
@@ -1535,7 +1508,7 @@ class _AdminHomeState extends State<AdminHome> {
                                                         '${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}'
                                                             .trim(),
                                                         style: const TextStyle(
-                                                          color: Colors.white,
+                                                          color: const Color(0xFFB5E575),
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 13,
@@ -1548,7 +1521,7 @@ class _AdminHomeState extends State<AdminHome> {
                                                         userData['email'] ??
                                                             'No email',
                                                         style: TextStyle(
-                                                          color: Colors.white54,
+                                                          color:  Color(0xFFB5E575),
                                                           fontSize: 11,
                                                         ),
                                                         maxLines: 1,
@@ -1565,7 +1538,7 @@ class _AdminHomeState extends State<AdminHome> {
                                         child: Text(
                                           '$price EGP',
                                           style: const TextStyle(
-                                            color: Colors.white,
+                                            color:const Color(0xFFB5E575),
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -1581,7 +1554,7 @@ class _AdminHomeState extends State<AdminHome> {
                                             ),
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: Colors.white24,
+                                                color: const Color(0xFFB5E575)
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(12),
@@ -1589,7 +1562,7 @@ class _AdminHomeState extends State<AdminHome> {
                                             child: Text(
                                               isNew ? 'New' : 'Used',
                                               style: const TextStyle(
-                                                color: Colors.white,
+                                                color: const Color(0xFFB5E575),
                                                 fontSize: 11,
                                               ),
                                             ),
@@ -1606,7 +1579,7 @@ class _AdminHomeState extends State<AdminHome> {
                                               vertical: 4,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: statusColor.withOpacity(
+                                              color: const Color(0xFFB5E575).withOpacity(
                                                 0.2,
                                               ),
                                               borderRadius:
@@ -1626,7 +1599,7 @@ class _AdminHomeState extends State<AdminHome> {
                                       PopupMenuButton<String>(
                                         icon: const Icon(
                                           Icons.more_horiz,
-                                          color: Colors.white54,
+                                          color: const Color(0xFFB5E575),
                                         ),
                                         color: _cardDark,
                                         onSelected: (value) {
@@ -1732,7 +1705,7 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
-  // --- UPDATED: REVIEW LISTING DIALOG ---
+  
   void _showListingReviewDialog(Map<String, dynamic> item, String docId) {
     final String title = item['title'] ?? 'No Title';
     final int price = item['price'] ?? 0;
@@ -1755,12 +1728,12 @@ class _AdminHomeState extends State<AdminHome> {
             const Text(
               'Review Product',
               style: TextStyle(
-                color: Colors.white,
+                color: const Color(0xFFB5E575),
                 fontWeight: FontWeight.bold,
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.close, color: Colors.white54),
+              icon: const Icon(Icons.close, color: const Color(0xFFB5E575)),
               onPressed: () => Navigator.pop(context),
             ),
           ],
@@ -1772,7 +1745,7 @@ class _AdminHomeState extends State<AdminHome> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // --- NEW MULTI-IMAGE GALLERY ---
+                
                 if (images.isNotEmpty) ...[
                   SizedBox(
                     height: 300,
@@ -1792,11 +1765,11 @@ class _AdminHomeState extends State<AdminHome> {
                               borderRadius: BorderRadius.circular(12),
                               child: Container(
                                 color: Colors
-                                    .black26, // Dark background for transparent edges
+                                    .black26,
                                 child: Image.memory(
                                   base64Decode(base64String),
                                   fit: BoxFit
-                                      .contain, // Shows the FULL image without cropping
+                                      .contain, 
                                 ),
                               ),
                             ),
@@ -1814,14 +1787,14 @@ class _AdminHomeState extends State<AdminHome> {
                       },
                     ),
                   ),
-                  // Helpful hint if they uploaded more than one photo
+                 
                   if (images.length > 1)
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: Text(
                         'Scroll horizontally to see all ${images.length} photos ➔',
                         style: TextStyle(
-                          color: _primaryPurple,
+                          color: green,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1850,13 +1823,13 @@ class _AdminHomeState extends State<AdminHome> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: _primaryPurple.withOpacity(0.2),
+                        color: green.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         category,
                         style: TextStyle(
-                          color: _primaryPurple,
+                          color: green,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -1927,7 +1900,7 @@ class _AdminHomeState extends State<AdminHome> {
         margin: const EdgeInsets.only(bottom: 4, right: 16),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         decoration: BoxDecoration(
-          color: isSelected ? _cardDark : Colors.transparent,
+          color: isSelected ? const Color(0xFFB5E575) : Colors.transparent,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(24),
             bottomRight: Radius.circular(24),
@@ -1955,11 +1928,12 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 
+Color dd=const Color(0xFFB5E575);
   Widget _buildStatCard(
     String title,
     String count,
     IconData icon,
-    Color color,
+    Color dd,
   ) {
     return Expanded(
       child: Container(
@@ -1967,7 +1941,7 @@ class _AdminHomeState extends State<AdminHome> {
         decoration: BoxDecoration(
           color: _bgDark,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(color: dd.withOpacity(0.3)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1977,20 +1951,20 @@ class _AdminHomeState extends State<AdminHome> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: _textSecondary, fontSize: 12),
+                  style: TextStyle(color: const Color(0xFFB5E575), fontSize: 12),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   count,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: const Color(0xFFB5E575),
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            Icon(icon, color: color, size: 28),
+            Icon(icon, color: dd, size: 28),
           ],
         ),
       ),
@@ -2001,7 +1975,7 @@ class _AdminHomeState extends State<AdminHome> {
     return Text(
       text,
       style: const TextStyle(
-        color: Colors.white,
+        color: const Color(0xFFB5E575),
         fontWeight: FontWeight.bold,
         fontSize: 13,
       ),
@@ -2011,7 +1985,7 @@ class _AdminHomeState extends State<AdminHome> {
   Widget _decodeImage(List<dynamic> images) {
     if (images.isEmpty) {
       return Container(
-        color: _bgDark,
+        color: const Color(0xFFB5E575),
         child: const Icon(Icons.image, color: Colors.white24, size: 20),
       );
     }
@@ -2028,7 +2002,7 @@ class _AdminHomeState extends State<AdminHome> {
   }
 }
 
-// --- TIME HELPER ---
+
   String _timeAgo(Timestamp? timestamp) {
     if (timestamp == null) return '--';
     

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_admin_panel/admin_home.dart';
+import 'package:FoundIt_admin_panel/admin_home.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -16,24 +16,20 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   final String _adminEmail = "smsm";
   final String _adminPassword = "admin";
 
-  // Colors
-  final Color _bgColor = const Color.fromARGB(255, 38, 2, 58);
-  final Color _inputBgColor = const Color(0xFF1B1B28);
-  final Color _primaryPurple = const Color(0xFF6E56FF);
-  final Color _textSecondary = const Color(0xFF8E8E9F);
+  final Color _primaryColor = const Color(0xFFB5E575);
+  final Color _textColor = const Color(0xFF1E1E1E);
+  final Color _bgColor = const Color(0xFFF9F9F9); 
 
   void _handleLogin() {
     setState(() => _errorMessage = null);
 
     if (_emailController.text.trim() == _adminEmail && 
         _passwordController.text == _adminPassword) {
-      // SUCCESS: Push to the Admin Dashboard
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const AdminHome()), 
       );
     } else {
-      // FAIL: Show error
       setState(() {
         _errorMessage = "Invalid admin credentials";
       });
@@ -47,78 +43,126 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            width: 400, // Keeps it looking good on desktop/web
+            width: 400, 
             padding: const EdgeInsets.all(40),
             decoration: BoxDecoration(
-              color: _inputBgColor.withOpacity(0.5),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.grey.shade200),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Icon(Icons.admin_panel_settings, size: 64, color: _primaryPurple),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade50,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.admin_panel_settings_outlined, size: 56, color: Colors.green[800]),
+                  ),
                 ),
                 const SizedBox(height: 24),
-                const Center(
+                Center(
                   child: Text(
                     'Admin Portal',
-                    style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, fontFamily: "syne"),
+                    style: TextStyle(color: _textColor, fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 40),
                 
-                // Email Field
-                const Text('Email', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 8),
+                _buildLabel('Admin ID / Email'),
                 TextField(
                   controller: _emailController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: 'admin@yallasafqa.com',
-                    hintStyle: TextStyle(color: _textSecondary.withOpacity(0.6)),
-                    filled: true,
-                    fillColor: _inputBgColor,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                  ),
+                  style: TextStyle(color: _textColor),
+                  decoration: _getInputDecoration(hintText: 'admin@foundit.com'),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
-                // Password Field
-                const Text('Password', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 8),
+                _buildLabel('Password'),
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: '••••••••',
-                    hintStyle: TextStyle(color: _textSecondary.withOpacity(0.6)),
-                    filled: true,
-                    fillColor: _inputBgColor,
-                    errorText: _errorMessage,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                  style: TextStyle(color: _textColor),
+                  decoration: _getInputDecoration(
+                    hintText: '••••••••', 
+                    errorText: _errorMessage
                   ),
-                  onSubmitted: (_) => _handleLogin(), // Allows pressing 'Enter' to log in
+                  onSubmitted: (_) => _handleLogin(),
                 ),
                 const SizedBox(height: 40),
 
-                // Login Button
-                ElevatedButton(
-                  onPressed: _handleLogin,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _primaryPurple,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _primaryColor,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    child: Text(
+                      'Access Dashboard', 
+                      style: TextStyle(color: Colors.green[900], fontSize: 16, fontWeight: FontWeight.bold)
+                    ),
                   ),
-                  child: const Text('Access Dashboard', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0, left: 4.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13, 
+          fontWeight: FontWeight.w700, 
+          color: Colors.grey.shade800,
+          letterSpacing: 0.3,
+        ),
+      ),
+    );
+  }
+
+  InputDecoration _getInputDecoration({required String hintText, String? errorText}) {
+    return InputDecoration(
+      hintText: hintText,
+      errorText: errorText,
+      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14, fontWeight: FontWeight.w400),
+      filled: true,
+      fillColor: Colors.white,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.green.shade700, width: 2.0),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.redAccent, width: 2.0),
       ),
     );
   }
